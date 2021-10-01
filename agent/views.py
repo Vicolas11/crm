@@ -92,12 +92,15 @@ class AgentCreateView(OrganiserLoginRequiredMixin, CreateView):
         )
         subject = 'You are invited as an agent'
         msg = f'Login details:\n{user.username}\n{password}\nAnd then reset the password.'
-        send_mail(
+        res = send_mail(
             subject=subject, 
             message=msg,
             from_email=f'{self.request.user.email}',
-            recipient_list=[f'{user.email}'])  
-        messages.success(self.request, f'Agent create successfully!\nCheck {user.email} for login details.')      
+            recipient_list=[f'{user.email}'])
+        if res == 1:  
+            messages.success(self.request, f'Agent create successfully!\nCheck {user.email} for login details.')
+        else:
+            messages.error(self.request,'There was an error sending email')
         return super(AgentCreateView, self).form_valid(form)
 
 class AgentDetailView(OrganiserLoginRequiredMixin, DetailView):
