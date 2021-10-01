@@ -95,8 +95,8 @@ class AgentCreateView(OrganiserLoginRequiredMixin, CreateView):
         send_mail(
             subject=subject, 
             message=msg,
-            from_email='test@admin.com',
-            recipient_list=[{f'{user.email}'}])  
+            from_email=f'{self.request.user.email}',
+            recipient_list=[f'{user.email}'])  
         messages.success(self.request, f'Agent create successfully!\nCheck {user.email} for login details.')      
         return super(AgentCreateView, self).form_valid(form)
 
