@@ -1,0 +1,89 @@
+
+.delete-btn {
+    text-decoration: none;
+    color: #f5f4f4;
+}
+
+small #back-btn {
+    border: rebeccapurple;
+    border-radius: 50%;
+}
+
+.table-row {
+    background-color: transparent;
+}
+
+.table-row:hover {
+    background-color: #f5f4f4;
+}
+
+.create-btn:hover, .btn-hover:hover {
+    color: #f5f4f4;
+}
+
+.view-category {
+  text-decoration: none;
+  color: #f5f4f4;
+}
+
+/* NavBar DropDownMenu */
+.navbarcus {
+    overflow: hidden;
+  }
+  
+  .navbarcus a {
+    float: left;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .navbarcus .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+  
+  .navbarcus .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    cursor: pointer;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+
+  .navbarcus .dropdown .dropbtn p {
+      margin-left: 5px;
+      color: black;
+  }
+  
+  .navbarcus a:hover, .dropdown:hover .dropbtn {
+    background-color: #eeeeee;
+  }
+  
+  .navbarcus .dropdown .dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .navbarcus .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .navbarcus .dropdown-content a:hover {
+    background-color: #ddd;
+  } 

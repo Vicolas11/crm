@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'header.html' %}
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                    </button>
+                    <strong>{{message}}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="d-flex justify-content-between mt-4">
+                <div>
+                    <h4>Agents</h4>    
+                </div>
+                <div>
+                    <a href="{% url 'agent:agent-create' %}" style="text-decoration: none;" class="create-btn">
+                        <button class="btn btn-outline-primary btn-sm btn-hover">
+                            Create Agent <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        </button>
+                    </a>                       
+                </div>                
+        </div>
+        <div class="table-responsive">           
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for agent in agents %}                        
+                            <tr class="cursor-pointer table-row">
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ agent.user.first_name }}</td>
+                                <td>{{ agent.user.last_name }}</td>
+                                <td>{{ agent.user.email }}</td>
+                                <td>
+                                    <small>
+                                       <a href="{% url 'agent:agent-detail' agent.id %}">
+                                            <h4 class="p-0 m-0"><i class="fa fa-eye" aria-hidden="true"></i></h4>
+                                        </a> 
+                                    </small>  
+                                </td>
+                            </tr>                     
+                    {% endfor %}  
+                </tbody>
+              </table>
+        </div>
+    </div>
+{% endblock content %}

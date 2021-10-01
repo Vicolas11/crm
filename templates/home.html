@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Navigation Header -->
+    {% include 'header.html' %}
+    <!-- Main Content -->
+    <div class="mx-auto mt-3">
+        <img src="{% static 'img/main-logo.png' %}" 
+            class="rounded mx-auto d-block"
+            width="30%" height="30%" 
+            alt="Main Logo">  
+    </div>
+    <h1 class="h4 text-center text-weight-bolder">Customer Relation Management</h1>
+    <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-primary"><a href="{% url 'lead:lead-signup' %}" style="color: blanchedalmond; text-decoration: none;">Get Started</a></button>    
+    </div>
+{% endblock content %}

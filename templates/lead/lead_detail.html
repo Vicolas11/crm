@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% include 'header.html' %}    
+    <div class="row justify-content-center pt-3">
+        
+        <div class="mx-auto mt-3" style="width: 50%;">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                        </button>
+                        <strong>{{message}}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="d-flex justify-content-between mb-2">
+                <div class="d-flex align-item-center">
+                    <small>
+                        <a  class="p-3"
+                            id='back-btn'
+                            href="{% url 'lead:lead-list' %}" 
+                            style="text-decoration: none;">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </a>
+                    </small>
+                    <div>
+                        <small><h5 class="m-0 text-muted">Lead</h5></small>
+                        <h4 class="mr-2"> {{ lead|title }}</h4>   
+                    </div>
+                    
+                </div>
+                {% if user.is_organiser %}                    
+                    <div class="d-flex justify-content-between">
+                        <!-- Edit Lead Button -->
+                        <a href="{% url 'lead:lead-update' lead.id %}" class="p-1">
+                            <button type="button" 
+                                class="btn btn-primary btn-sm ml-2 pl-3"> 
+                                <i class="fas fa-pen"></i>
+                            </button> 
+                        </a>
+                        <!-- Delete Lead Button -->
+                        <a href="{% url 'lead:lead-delete' lead.id %}" class="p-1">
+                        <button 
+                                type="button" 
+                                class="btn btn-danger btn-sm mr-2 pr-3"> 
+                                <i class="fa fa-trash" aria-hidden="true"> </i>
+                            </button> 
+                        </a>                    
+                    </div>  
+                {% endif %}                                                              
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a      class="nav-link active" id="home-tab" 
+                            data-toggle="tab" 
+                            href="#home" 
+                            role="tab" 
+                            aria-controls="home" 
+                            aria-selected="true">Overview
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="border-bottom p-3">
+                        <p>{{ lead.description }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom p-1 pb-0">
+                        <h6>Category</h6>
+                        <p>{{ lead.category }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom p-1 pb-0">
+                        <h6>Age</h6>
+                        <p>{{ lead.age }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom p-1 pb-0">
+                        <h6>Phone Number</h6>
+                        <p>{{ lead.contact }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom p-1 pb-0">
+                        <h6>Email</h6>
+                        <p>{{ lead.email }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom p-1 pb-0">
+                        <h6>Agent</h6>
+                        <p>{{ lead.agent }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <!-- This is support to pop up when I press the delete button but it didn't so I need to check it out -->
+    <div class="modal fade delete-model" id="deleteModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss='modal'>
+                        &times;
+                    </button>
+                    <h4 class="modal-title">Delete Lead</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>Are you sure you want to delete {{ lead }}?</p>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>   
+                    </form> 
+                </div>
+            </div>
+        </div>       
+    </div>
+{% endblock content %}

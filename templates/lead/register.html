@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% include 'header.html' %}    
+    <div class="row justify-content-center pt-2">
+        <div class="form-group col-md-4 col-md-offset-5 align-center ">
+            <form method="post" class="shadow-sm p-3 mb-5 bg-white rounded">
+                {% csrf_token %}
+                <h4 class='h4 text-center p-2'>Signup As Lead</h4>
+                <fieldset>
+                    {{ form|crispy }}
+                </fieldset>                
+                <div class="mt-2 text-center">
+                    <button type="submit" class='btn btn-primary'>Signup</button>
+                </div> 
+                <div class="mt-2 text-center">
+                    <p class='fs-6'>Have an account? <span><a class="text-primary" href="{% url 'lead:lead-login' %}">Login Here</a></span></p>
+                </div>           
+            </form> 
+        </div>
+    </div>
+{% endblock content %}

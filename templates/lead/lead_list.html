@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'header.html' %}
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                    </button>
+                    <strong>{{message}}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!-- HEADING -->
+        <div class="d-flex justify-content-between mt-4 border-bottom">
+            {% if leads.exists %}
+                <div>
+                    <h4 class="p-0 mb-0">Leads</h4>
+                    <!-- View Cateogory Link -->
+                    {% if user.is_organiser %}
+                        <small>
+                            <a  href="{% url 'category:category-list' %}"
+                                class="view-category">
+                                view category
+                            </a>
+                        </small> 
+                    {% endif %}                       
+                </div>
+                {% else %}
+                <div>
+                        {% if user.agent and not leads.exists %}
+                            <h4>Leads</h4>
+                        {% endif %}
+                </div> 
+            {% endif %}
+                <!-- Create Lead Button -->
+                <div>
+                    {% if user.is_organiser %}
+                        <a href="{% url 'lead:lead-create' %}" style="text-decoration: none;" class="create-btn">
+                            <button class="btn btn-outline-primary btn-sm btn-hover">
+                                Create Lead <i class="fa fa-plus" aria-hidden="true"></i></a>
+                            </button>
+                        </a>
+                    {% endif %}                                           
+                </div>                
+        </div>
+        <!-- ASSIGNED LEADS TABLE-->
+        {% if leads.exists %}
+            <div class="table-responsive">           
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Category</th>
+                        {% if user.is_organiser %}<th scope="col">Agent</th>{% endif %}                    
+                        <th scope="col">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for lead in leads %}                        
+                                <tr class="cursor-pointer table-row">
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ lead.first_name }}</td>
+                                    <td>{{ lead.last_name }}</td>
+                                    <td>{{ lead.age }}</td>
+                                    <td>{{ lead.email }}</td>
+                                    <td>{{ lead.contact }}</td>
+                                    <td>{{ lead.category }}</td>
+                                    {% if user.is_organiser %}<td>{{ lead.agent }}</td>{% endif %}                                
+                                    <td>{{ lead.description }}</td>
+                                    <td>
+                                        <small>
+                                        <a href="{% url 'lead:lead-detail' lead.id %}">
+                                                <h4 class="p-0 m-0"><i class="fa fa-eye" aria-hidden="true"></i></h4>
+                                            </a> 
+                                        </small>                                            
+                                    </td>
+                                </tr> 
+                            {% empty %}
+                                {% if user.is_organiser %}
+                                    <div class="p-4">
+                                        <p>No Lead Created Yet!</p>    
+                                    </div>
+                                    
+                                {% else %}
+                                    <p>No Lead Assigned to you!</p>
+                                {% endif %}                                             
+                        {% endfor %}  
+                    </tbody>
+                </table>
+            </div>
+            {% elif user.is_agent and not leads.exists %}
+                <div class="p-2">
+                    <p>No lead assigned to you yet!</p>    
+                </div>                
+        {% endif %}
+        <!-- UNASSIGNED LEADS BOXES-->
+        {% if unassignedLeads.exists %}
+            <div class="border-bottom">
+                <h5>Unassigned Lead</h5>
+            </div>
+        {% endif %}
+        <div class="d-flex justify-content-between">
+            {% for unassignedLead in unassignedLeads %}
+                <div class="col-4 border border-1 border-primary rounded m-2 p-3">
+                    <h4>{{ unassignedLead }}</h4>
+                    <p>{{ unassignedLead.description }}</p>
+                    <!-- ASSIGNED AGENT BUTTON -->
+                    <a href="{% url 'lead:assigned-agent' unassignedLead.pk %}">
+                        <button class="btn btn-sm btn-primary">
+                            Assign Agent <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>    
+                    </a>                    
+                </div>
+                {% empty %}
+                <div class="p-4">
+                    {% if user.is_organiser %}
+                        <p>No unassigned lead available!</p> 
+                    {% endif %}                       
+                </div>
+            {% endfor %}            
+        </div>
+    </div>
+{% endblock content %}
