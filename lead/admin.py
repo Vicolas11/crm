@@ -3,10 +3,6 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 from .models import *
 
-# admin.site.register(User)
-admin.site.register(Lead)
-admin.site.register(Agent)
-admin.site.register(Profile)
 admin.site.register(Category)
 
 @admin.register(User)
