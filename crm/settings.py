@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'agent',
-    'lead',
+    'lead.apps.UsersConfig',
     'category',
     #ThirdPartApp
     'crispy_forms',
