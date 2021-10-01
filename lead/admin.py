@@ -39,7 +39,7 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Personal info'), {'fields': ('first_name','last_name','age','email','description','contact','description','date_created','agent','category','organisation',)}),
+        (_('Personal info'), {'fields': ('first_name','last_name','age','email','contact','description','date_created','agent','category','organisation',)}),
     )
     list_display = ('id','first_name','last_name','age','email','contact','description','agent','category','organisation',)
     search_fields = ('id','level', 'first_name', 'last_name',)
