@@ -24,6 +24,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import (DeleteView, FormView, UpdateView, CreateView) 
+from django.conf import settings
 
 class LandingPageView(TemplateView):
     template_name = 'home.html'
@@ -75,7 +76,7 @@ class LeadSignUpView(FormView):
             send_mail(
                 subject=subject, 
                 message=msg,
-                from_email='test@test.com',
+                from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[{f'{user.email}'}])
             redirect('activate-sent')
         return super(LeadSignUpView, self).form_valid(form)
