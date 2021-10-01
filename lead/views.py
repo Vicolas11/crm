@@ -76,7 +76,7 @@ class LeadSignUpView(FormView):
             res = send_mail(
                 subject=subject, 
                 message=msg,
-                from_email=f'{settings.EMAIL_HOST_USER}',
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[{f'{user.email}'}])
             if res == 1:
                 redirect('activate-sent')

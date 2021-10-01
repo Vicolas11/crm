@@ -131,11 +131,12 @@ USE_TZ = True
 #Email Services
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.elasticemail.com' #'smtp.gmail.com'
+EMAIL_HOST =  'smtp.gmail.com'#''smtp.elasticemail.com'
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')  
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 2525 #587
+EMAIL_PORT = 587 #2525
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'customerelated@gmail.com'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
