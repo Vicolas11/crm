@@ -88,7 +88,7 @@ DATABASES = {
             'NAME': env('DB_NAME'), 
             'USER': env('DB_USER'), 
             'PASSWORD': env('DB_PWD'),
-            'HOST': 'ec2-54-156-60-12.compute-1.amazonaws.com', 
+            'HOST': 'ec2-44-199-26-122.compute-1.amazonaws.com', 
             'PORT': '5432',
         }
 }
