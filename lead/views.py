@@ -73,12 +73,15 @@ class LeadSignUpView(FormView):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user)
             })
-            send_mail(
+            res = send_mail(
                 subject=subject, 
                 message=msg,
-                from_email=settings.EMAIL_HOST_USER,
+                from_email=f'{settings.EMAIL_HOST_USER}',
                 recipient_list=[{f'{user.email}'}])
-            redirect('activate-sent')
+            if res == 1:
+                redirect('activate-sent')
+            else:
+                messages.error(request, f'Email not sent')
         return super(LeadSignUpView, self).form_valid(form)
 
 #Validate and Activate New Sign Lead
